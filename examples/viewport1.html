@@ -1,0 +1,21 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Static Map Viewport Example</title>
+<style type="text/css">
+<!--
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif;
+}
+-->
+</style></head>
+
+<body>
+<h2>Viewport Example:</h2>
+<p>This uses a coordinate and a table filter combination to only show the Louisiana Parishes. The mode is set to tile so that it will combine the tiles where the topleft bottomright are located in.</p>
+<p><img src="../staticmap/staticmap.php?user=silverbiology&table=usa_adm2&mode=tile&zoom=7&lat1=33.0178&lat2=28.9336&lon1=-94.04&lon2=-89.099&filter={%22name_1%22:%22Louisiana%22}" border="1" /></p> 
+<p>This uses a coordinate and a table filter combination to only show the Louisiana Parishes. The mode is not set so it uses the default box mode so the image is generated as the image above but then trimmed to the pixels for the coordinates passed*. (Currently not working)</p>
+<p><img src="../staticmap/staticmap.php?user=silverbiology&table=usa_adm2&zoom=7&lat1=33.0178&lat2=28.9336&lon1=-94.04&lon2=-89.099&filter={%22name_1%22:%22Louisiana%22}" border="1" /></p> 
+</body>
+</html>

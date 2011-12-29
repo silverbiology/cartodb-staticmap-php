@@ -307,6 +307,7 @@ Class CartoDBStaticmap {
 
 	public function trimToPoint() {
 		list($width, $height) = getImageSize($this->mapFile);
+
 		if($this->singlePoint) {
 			$center["x"] = ((($this->x[1] - $this->x[0]) + 1) * $this->tileSize)/2;
 			$center["y"] = ((($this->y[1] - $this->y[0]) + 1) * $this->tileSize)/2;
@@ -317,6 +318,7 @@ Class CartoDBStaticmap {
 			$xOffset = (($center["x"] - $calcX) / 2) * -1;
 			$calcY = (($this->originalCell["y"] - $this->y[0]) * $this->tileSize) + $this->point1["y"];
 			$yOffset = ($center["y"] - $calcY) * -1;
+			$gravity = '-gravity center';
 		} else {
 			$xFactor = $yFactor = 0;
 			$xFactor = ($this->tileSize - $this->point2["x"]);
@@ -325,13 +327,15 @@ Class CartoDBStaticmap {
 			$y = $height - $this->point1["y"] - $yFactor;
 			$xOffset = $this->point1["x"];
 			$yOffset = $this->point1["y"];
+			$gravity = '';
 		}
 
 		if ($xOffset >= 0) $xOffset = "+" . strval($xOffset);
 		if ($yOffset >= 0) $yOffset = "+" . strval($yOffset);
 
-		$cmd = sprintf("convert %s -gravity center -crop %dx%d%s%s %s"
+		$cmd = sprintf("convert %s %s -crop %dx%d%s%s %s"
 			, $this->mapFile
+			, $gravity
 			, $x
 			, $y
 			, $xOffset
@@ -350,7 +354,6 @@ Class CartoDBStaticmap {
 		if($this->tileCount > $this->maxTiles) {
 			die('Too many tiles. The max tiles is set at: ' . $this->maxTiles . ' and your tile count is: ' . $this->tileCount);
 		}
-
 		$this->createTiles();
 		$this->mergeTiles();
 		if($this->mode != 'tile') {
